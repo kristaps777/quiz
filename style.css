@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body,
+main,
+form {
+    display: flex;
+}
+
+body {
+    height: 100vh;
+    align-items: center;
+}
+
+main {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    margin: 20px 0;
+}
+
+form {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+select {
+    margin-bottom: 20px;
+}
