@@ -79,8 +79,6 @@ h1 {
 h2 {
     width: 80%;
     height: 20%;
-    margin-bottom: 20px;
-    margin-top: 40px;
     text-align: center;
     text-shadow: 3px 2px 10px #FFFFFF;
     align-items: center;
@@ -94,7 +92,7 @@ h3 {
 
 form {
     width: 100%;
-    height: 100%;
+    height: 50%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -196,13 +194,13 @@ button:hover {
 }
 
 #answers {
-    width: 100%;
-    height: 30%;
+    width: 50%;
+    height: 40%;
     display: grid;
     grid-template-columns: auto;
     text-align: center;
     gap: 1em;
-    margin-bottom: auto;
+    margin-bottom: 20px;
 }
 
 #answers div {
@@ -219,7 +217,7 @@ button:hover {
     height: 15px;
     border-radius: 20px;
     border: 2px solid white;
-    margin-bottom: auto;
+    margin-bottom: 20px;
     display: flex;
     justify-content: flex-start;
 }
@@ -232,12 +230,25 @@ button:hover {
 
 /* media queries */
 @media(min-width: 768px) {
-    main {
+main {
         width: 60%;
         height: 60%;
+}
+form {
+    height: 100%;
+}
+h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
 }
 
 #answers {
     grid-template-columns: repeat(2, auto);
+    margin-bottom: 20px;
+    width: 100%;
+    height: 30%;
+}
+#progress {
+    margin-bottom: auto;
 }
 }
