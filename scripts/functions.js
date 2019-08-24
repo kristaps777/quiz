@@ -39,6 +39,7 @@ function generateTestView() {
     document.querySelector("body").innerHTML = test_template;
     getTestQuestions();
     setTimeout(function () { getQuestionAnswers(); }, 800);
+    setTimeout(function () { setProgress(); }, 800);
 }
 
 // increase the question counter global variable
@@ -149,21 +150,15 @@ function getQuestionAnswers() {
             // parse the xhr request response; this creates an array of objects
             let answers_list = JSON.parse(xhr.responseText);
 
-            answers_array_global.push(answers_list);
-
             for (let i = 0; i < answers_list.length; i++) {
 
                 let div_tag = document.createElement('div');
-                div_tag.innerHTML = answers_array_global[0][i]["title"];
-                div_tag.id = answers_array_global[0][i]["id"];
+                div_tag.innerHTML = answers_list[i]["title"];
+                div_tag.id = answers_list[i]["id"];
 
                 // append each option tag to the tests list
                 answer_target.appendChild(div_tag);
             }
-
-
-
-            // answer_target.innerHTML = answers_array_global[0][question_id_global]["title"];
 
         } else {
             // fallback action needed here 
@@ -173,6 +168,46 @@ function getQuestionAnswers() {
 
     // open & send request
     xhr.open('GET', 'https://printful.com/test-quiz.php?action=answers&quizId=' + quiz_id_global + '&questionId=' + question_id_global);
+    xhr.send();
+
+}
+
+function setProgress() {
+    const progress_bar = document.getElementById("progress");
+
+    for (let i = 0; i < questions_array_global[0].length; i++) {
+        const progress_div = document.createElement("div");
+        progress_div.setAttribute("class", "empty_progress");
+        progress_bar.appendChild(progress_div);
+    }
+
+    const all_progress = document.getElementsByClassName("empty_progress");
+    all_progress[question_counter_global].classList.add("in_progress");
+}
+
+function getCorrectAnswers() {
+    // new request object
+    let xhr = new XMLHttpRequest();
+
+    // callback
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            const target = document.getElementById('cream');
+
+            // parse the xhr request response; this creates an array of objects
+            let answers_list = JSON.parse(xhr.responseText);
+            console.log(answers_list);
+
+
+        } else {
+            // fallback action needed here 
+        }
+
+    }
+
+    // open & send request
+    xhr.open('GET', 'https://printful.com/test-quiz.php?action=submit&quizId=141&answers[]=57737&answers[]=262891');
     xhr.send();
 
 }

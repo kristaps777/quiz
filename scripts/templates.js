@@ -9,18 +9,15 @@ const welcome_template =
     '<select name="" id="tests_ajax"></select>' +
     '<button type="button" id="submit" onclick="validateForm();">NEXT</button>' +
     '</form>' +
-    '</main>'
+    '</main>' +
+    '<section id="cream"></section>'
     ;
 
 const test_template =
     '<main id="questions">' +
     '<h2 id="question_container"></h2>' +
-    '<section id="answers">' +
-    // '<div id="a1"></div>' +
-    // '<div id="a2"></div>' +
-    // '<div id="a3"></div>' +
-    // '<div id="a4"></div>' +
-    '</section>' +
+    '<section id="answers"></section>' +
+    '<section id="progress"></section>' +
     '<button type="submit" onclick="increaseCount();generateTestView();">NEXT</button>' +
     '</main>'
     ;

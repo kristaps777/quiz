@@ -1,2 +1,4 @@
 generateWelcomeView();
 getTestNames();
+
+getCorrectAnswers();
