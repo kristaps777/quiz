@@ -15,11 +15,11 @@ function validateForm() {
     } else {
         // if the form is ok, store player name and test name, and get the unique ID of the selected test
         player_name_global = player_name
-        test_name_global = document.getElementById("tests_ajax").value;
+        quiz_name_global = document.getElementById("tests_ajax").value;
 
         for (let i = 0; i < all_options.length; i++) {
-            if (test_name_global == all_options[i].innerHTML) {
-                test_id_global = all_options[i].id;
+            if (quiz_name_global == all_options[i].innerHTML) {
+                quiz_id_global = all_options[i].id;
             }
         }
 
@@ -38,6 +38,7 @@ function generateWelcomeView() {
 function generateTestView() {
     document.querySelector("body").innerHTML = test_template;
     getTestQuestions();
+    setTimeout(function () { getQuestionAnswers(); }, 800);
 }
 
 // increase the question counter global variable
@@ -87,7 +88,7 @@ function getTestNames() {
     }
 
     // open & send request
-    xhr.open('GET', 'https://printful.com/test-quiz.php?action=quizzes');
+    xhr.open('GET', quiz_names_link_global);
     xhr.send();
 }
 
@@ -99,16 +100,18 @@ function getTestQuestions() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
 
-            const question_target = document.getElementById('questions');
-            const question_container = document.createElement("h2");
+            const question_target = document.getElementById('question_container');
+            // const question_container = document.createElement("h2");
 
             // parse the xhr request response; this creates an array of objects
             let questions_list = JSON.parse(xhr.responseText);
             questions_array_global.push(questions_list);
 
-
-            question_container.innerHTML = questions_array_global[0][question_counter_global]["title"];
-            question_target.appendChild(question_container);
+            question_id_global = questions_array_global[0][question_counter_global]["id"];
+            question_target.innerHTML = questions_array_global[0][question_counter_global]["title"];
+            console.log(quiz_id_global);
+            console.log(question_id_global);
+            // question_target.appendChild(question_container);
 
             // loop through the parsed response, grab the test titles and put them into generated option tags
             // for (let i = 0; i < questions_list.length; i++) {
@@ -128,7 +131,48 @@ function getTestQuestions() {
     }
 
     // open & send request
-    xhr.open('GET', 'https://printful.com/test-quiz.php?action=questions&quizId=' + test_id_global);
+    xhr.open('GET', 'https://printful.com/test-quiz.php?action=questions&quizId=' + quiz_id_global);
+    xhr.send();
+
+}
+
+function getQuestionAnswers() {
+    // new request object
+    let xhr = new XMLHttpRequest();
+
+    // callback
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            const answer_target = document.getElementById('answers');
+
+            // parse the xhr request response; this creates an array of objects
+            let answers_list = JSON.parse(xhr.responseText);
+
+            answers_array_global.push(answers_list);
+
+            for (let i = 0; i < answers_list.length; i++) {
+
+                let div_tag = document.createElement('div');
+                div_tag.innerHTML = answers_array_global[0][i]["title"];
+                div_tag.id = answers_array_global[0][i]["id"];
+
+                // append each option tag to the tests list
+                answer_target.appendChild(div_tag);
+            }
+
+
+
+            // answer_target.innerHTML = answers_array_global[0][question_id_global]["title"];
+
+        } else {
+            // fallback action needed here 
+        }
+
+    }
+
+    // open & send request
+    xhr.open('GET', 'https://printful.com/test-quiz.php?action=answers&quizId=' + quiz_id_global + '&questionId=' + question_id_global);
     xhr.send();
 
 }

@@ -14,6 +14,13 @@ const welcome_template =
 
 const test_template =
     '<main id="questions">' +
+    '<h2 id="question_container"></h2>' +
+    '<section id="answers">' +
+    // '<div id="a1"></div>' +
+    // '<div id="a2"></div>' +
+    // '<div id="a3"></div>' +
+    // '<div id="a4"></div>' +
+    '</section>' +
     '<button type="submit" onclick="increaseCount();generateTestView();">NEXT</button>' +
     '</main>'
     ;
