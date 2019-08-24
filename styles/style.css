@@ -78,10 +78,18 @@ h1 {
 
 h2 {
     width: 80%;
-    margin-bottom: auto;
+    height: 20%;
+    margin-bottom: 20px;
     margin-top: 40px;
     text-align: center;
     text-shadow: 3px 2px 10px #FFFFFF;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+h3 {
+    margin-bottom: 20px;
 }
 
 form {
@@ -189,6 +197,7 @@ button:hover {
 
 #answers {
     width: 100%;
+    height: 30%;
     display: grid;
     grid-template-columns: auto;
     text-align: center;
@@ -207,6 +216,7 @@ button:hover {
 
 #progress {
     width: 50%;
+    height: 15px;
     border-radius: 20px;
     border: 2px solid white;
     margin-bottom: auto;

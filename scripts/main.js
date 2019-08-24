@@ -1,4 +1,4 @@
 generateWelcomeView();
 getTestNames();
 
-getCorrectAnswers();
+// getCorrectAnswers();

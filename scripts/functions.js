@@ -14,7 +14,7 @@ function validateForm() {
         return errorMsg.innerText += "-- please select a test --";
     } else {
         // if the form is ok, store player name and test name, and get the unique ID of the selected test
-        player_name_global = player_name
+        player_name_global = player_name;
         quiz_name_global = document.getElementById("tests_ajax").value;
 
         for (let i = 0; i < all_options.length; i++) {
@@ -42,9 +42,33 @@ function generateTestView() {
     setTimeout(function () { setProgress(); }, 800);
 }
 
+function generateNextTestView() {
+    if (question_counter_global == questions_array_global[0].length) {
+        generateResultsView();
+    } else {
+        document.querySelector("body").innerHTML = test_template;
+        getTestQuestions();
+        setTimeout(function () { getQuestionAnswers(); }, 800);
+        setTimeout(function () { setProgress(); }, 800);
+    }
+}
+
+// generates the 3nd 'results' view using a template from templates.js
+function generateResultsView() {
+    document.querySelector("body").innerHTML = score_template;
+
+    const greeting = document.getElementById("player");
+    const score = document.getElementById("score");
+
+    greeting.innerHTML = "WELL DONE, " + player_name_global + "!";
+    score.innerHTML = "You answered ?? of " + question_counter_global + " questions correctly!";
+}
+
 // increase the question counter global variable
 function increaseCount() {
-    return question_counter_global++;
+    if (question_counter_global !== questions_array_global[0].length) {
+        return question_counter_global++;
+    }
 }
 
 // get all available tests for the 'welcome' view
@@ -102,7 +126,6 @@ function getTestQuestions() {
         if (xhr.readyState === 4 && xhr.status === 200) {
 
             const question_target = document.getElementById('question_container');
-            // const question_container = document.createElement("h2");
 
             // parse the xhr request response; this creates an array of objects
             let questions_list = JSON.parse(xhr.responseText);
@@ -110,20 +133,6 @@ function getTestQuestions() {
 
             question_id_global = questions_array_global[0][question_counter_global]["id"];
             question_target.innerHTML = questions_array_global[0][question_counter_global]["title"];
-            console.log(quiz_id_global);
-            console.log(question_id_global);
-            // question_target.appendChild(question_container);
-
-            // loop through the parsed response, grab the test titles and put them into generated option tags
-            // for (let i = 0; i < questions_list.length; i++) {
-
-            //     const placeholder = document.createElement("h2");
-            //     const break_tag = document.createElement("br");
-            //     placeholder.innerHTML = questions_list[i]["title"];
-
-            //     question_target.appendChild(placeholder, break_tag);
-
-            // }
 
         } else {
             // fallback action needed here 

@@ -18,6 +18,14 @@ const test_template =
     '<h2 id="question_container"></h2>' +
     '<section id="answers"></section>' +
     '<section id="progress"></section>' +
-    '<button type="submit" onclick="increaseCount();generateTestView();">NEXT</button>' +
+    '<button type="button" onclick="increaseCount();generateNextTestView();">NEXT</button>' +
+    '</main>'
+    ;
+
+const score_template =
+    '<main>' +
+    '<h2 id="player"></h2>' +
+    '<h3 id="score"></h3>' +
+    '<button type="button" onclick="window.location.reload();">START OVER</button>' +
     '</main>'
     ;
