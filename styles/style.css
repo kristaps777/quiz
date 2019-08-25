@@ -156,10 +156,6 @@ input[type="radio"]:checked+label {
     color: red;
 }
 
-.answer {
-    cursor: pointer;
-}
-
 .answer label {
     width: 100%;
     height: 100%;
@@ -229,6 +225,7 @@ input[type="radio"]:checked+label {
 #answers div:hover {
     color: black;
     background-color: white;
+    cursor: pointer;
 }
 
 #progress {

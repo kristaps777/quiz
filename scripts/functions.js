@@ -77,6 +77,7 @@ function generateNextTestView() {
 //------------------------------------------------------------------------------------------------------------//
 
 // generates the 3nd 'results' view using a template from templates.js
+// for some reason I am unable to assign the correct answers response value to a global variable(???)
 function generateResultsView() {
     document.querySelector("body").innerHTML = score_template;
 
@@ -84,7 +85,8 @@ function generateResultsView() {
     const score = document.getElementById("score");
 
     greeting.innerHTML = "WELL DONE, " + player_name_global + "!";
-    score.innerHTML = "You answered ?? of " + question_counter_global + " questions correctly!";
+    score.innerHTML = "You answered <span id='correct_answers'></span>" + " out of " + question_counter_global + " questions correctly!";
+    getCorrectAnswers();
 }
 
 //------------------------------------------------------------------------------------------------------------//
@@ -256,7 +258,7 @@ function setProgress() {
 
 //------------------------------------------------------------------------------------------------------------//
 
-// work in progress
+// get correct answers and diaplay
 function getCorrectAnswers() {
     // new request object
     let xhr = new XMLHttpRequest();
@@ -265,12 +267,9 @@ function getCorrectAnswers() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
 
-            const target = document.getElementById('cream');
-
-            // parse the xhr request response; this creates an array of objects
+            let target = document.getElementById("correct_answers");
             let answers_list = JSON.parse(xhr.responseText);
-            console.log(answers_list);
-
+            target.innerHTML = answers_list.correct;
 
         } else {
             // fallback action needed here 
@@ -279,7 +278,7 @@ function getCorrectAnswers() {
     }
 
     // open & send request
-    xhr.open('GET', 'https://printful.com/test-quiz.php?action=submit&quizId=141&answers[]=57737&answers[]=262891');
+    xhr.open('GET', buildSubmitLink());
     xhr.send();
 
 }
@@ -297,4 +296,14 @@ function answerListener() {
             user_answers_global.push(all_radios[i].getAttribute("id"));
         }
     }
+}
+
+// builds the link for submitting the answers by quiz ID and answer ID
+function buildSubmitLink() {
+    answers_link_global += quiz_id_global;
+    for (let i = 0; i < user_answers_global.length; i++) {
+        answers_link_global += "&answers[]=";
+        answers_link_global += user_answers_global[i];
+    }
+    return answers_link_global;
 }

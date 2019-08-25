@@ -11,3 +11,4 @@ let user_answers_global = [];
 
 // this one isn't really needed, I just checked if a URL can be declared as a variable
 let quiz_names_link_global = "https://printful.com/test-quiz.php?action=quizzes";
+let answers_link_global = "https://printful.com/test-quiz.php?action=submit&quizId=";
