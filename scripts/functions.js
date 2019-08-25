@@ -162,12 +162,26 @@ function getQuestionAnswers() {
             for (let i = 0; i < answers_list.length; i++) {
 
                 let div_tag = document.createElement('div');
-                div_tag.innerHTML = answers_list[i]["title"];
-                div_tag.id = answers_list[i]["id"];
+                let label_tag = document.createElement('label');
+                let radio_tag = document.createElement('input');
+
+                div_tag.setAttribute("class", "answer");
+
+                label_tag.setAttribute("for", answers_list[i]["id"]);
+                label_tag.innerHTML = answers_list[i]["title"];
+
+                radio_tag.id = answers_list[i]["id"];
+                radio_tag.setAttribute("type", "radio");
+                radio_tag.setAttribute("name", "quiz_answer");
+                radio_tag.setAttribute("class", "quiz_radio");
 
                 // append each option tag to the tests list
+                div_tag.appendChild(radio_tag);
+                div_tag.appendChild(label_tag);
                 answer_target.appendChild(div_tag);
+
             }
+
 
         } else {
             // fallback action needed here 
@@ -219,4 +233,14 @@ function getCorrectAnswers() {
     xhr.open('GET', 'https://printful.com/test-quiz.php?action=submit&quizId=141&answers[]=57737&answers[]=262891');
     xhr.send();
 
+}
+
+function answerListener() {
+    let all_radios = document.querySelectorAll(".quiz_radio");
+    console.log(all_radios);
+    for (let i = 0; i < all_radios.length; i++) {
+        if (all_radios[i].checked == true) {
+            console.log(all_radios[i].getAttribute("id"));
+        }
+    }
 }

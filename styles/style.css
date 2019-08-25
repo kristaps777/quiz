@@ -61,8 +61,8 @@ body:after {
 main {
     width: 100%;
     height: 100%;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     background-color: rgba(27, 35, 71, 0.9);
     box-shadow:
@@ -78,12 +78,12 @@ h1 {
 
 h2 {
     width: 80%;
-    height: 20%;
     text-align: center;
     text-shadow: 3px 2px 10px #FFFFFF;
     align-items: center;
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 h3 {
@@ -103,12 +103,12 @@ label {
     font-weight: bold;
 }
 
-input,
+input[type="text"],
 select {
     margin-bottom: 20px;
 }
 
-input,
+input[type="text"],
 select {
     width: 180px;
     border-radius: 20px;
@@ -146,6 +146,21 @@ button {
 button:hover {
     -webkit-filter: grayscale(100%);
             filter: grayscale(100%);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked+label {
+    color: red;
+}
+
+.answer label {
+    width: 100%;
+    height: 100%;
+    display: block;
+    margin-bottom: 0;
 }
 
 .hidden {
@@ -231,15 +246,15 @@ button:hover {
 /* media queries */
 @media(min-width: 768px) {
 main {
-        width: 60%;
-        height: 60%;
+    width: 60%;
+    height: 60%;
 }
 form {
     height: 100%;
 }
 h2 {
+    height: 20%;
     margin-top: 40px;
-    margin-bottom: 20px;
 }
 
 #answers {

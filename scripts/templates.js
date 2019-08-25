@@ -18,7 +18,7 @@ const test_template =
     '<h2 id="question_container"></h2>' +
     '<section id="answers"></section>' +
     '<section id="progress"></section>' +
-    '<button type="button" onclick="increaseCount();generateNextTestView();">NEXT</button>' +
+    '<button id="submit_button" type="button" onclick="answerListener();increaseCount();generateNextTestView();">NEXT</button>' +
     '</main>'
     ;
 
