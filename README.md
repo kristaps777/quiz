@@ -13,6 +13,7 @@ img
   background.jpg
  
 This folder holds a single image used for the background of the page via the styles.css.
+
 ----------------------------------------------------------------------------------------------------------------
 
 scripts
@@ -21,6 +22,7 @@ scripts
  The config.js file holds a few empty global variables for storing values like quizID, answerID, correct answerID, 
  question progress and a couple of request links. Since I'm not using any BackEnd solutions, these global variables are 
  essential to make everything work.
+ 
 ----------------------------------------------------------------------------------------------------------------
 
   functions.js
@@ -97,6 +99,7 @@ which carries the flow further.
  of the view, they are static with no dynamic elements. The dynamic parts get added in using functions stored in functions.js
  file. Every time a view needs to be generated, the corresponding function accesses the template in question and replaces 
  the content of the <body> tag with the template. Dynamic content is added later.
+  
 ----------------------------------------------------------------------------------------------------------------
 
 styles
