@@ -6,6 +6,8 @@ In this readme.txt file I will describe the structure of the Quiz page.
 There are also comments throughout the script files, where I tried to explain what's being done and also wrote down
 a few personal notes and problems I came accross.
 
+For AJAX requests I am using the quiz API provided in the assignment.
+
 PROJECT STRUCTURE
 
 ----------------------------------------------------------------------------------------------------------------
