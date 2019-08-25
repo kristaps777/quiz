@@ -125,6 +125,3 @@ Since I've never used AJAX requests before, I wasn't able to handle any fallback
 wrong with the response from the server. It is possible that the Quiz will not work properly on some occasions, the questions 
 might not be displayed, or the answers might not load correctly and lag 1 question behind. I tried to address this by adding 
 timeouts to the requests and it did help, but unfortunately it's not a perfect solution. If you come accross any display errors, please reload the page, and hopefully everything should run correctly.
-
-----------------------------------------------------------------------------------------------------------------
-
