@@ -237,10 +237,9 @@ function getCorrectAnswers() {
 
 function answerListener() {
     let all_radios = document.querySelectorAll(".quiz_radio");
-    console.log(all_radios);
     for (let i = 0; i < all_radios.length; i++) {
         if (all_radios[i].checked == true) {
-            console.log(all_radios[i].getAttribute("id"));
+            user_answers_global.push(all_radios[i].getAttribute("id"));
         }
     }
 }
