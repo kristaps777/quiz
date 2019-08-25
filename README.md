@@ -90,6 +90,7 @@ the first view of index.html and getTestNames() is also called to fill the <sele
 The rest of the flow is carried on from within other functions, for example, the next function in line to be executed
 is validateForm(), which checks if a name is entered and if a quiz is selected, and if they are, calls for generateTestView(),
 which carries the flow further.
+  
 ----------------------------------------------------------------------------------------------------------------
 
   templates.js
