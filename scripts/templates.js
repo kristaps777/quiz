@@ -1,3 +1,8 @@
+/*
+basic templates for the 3 views
+the rest of the content within the templates is generated via functions in functions.js
+*/
+
 const welcome_template =
     '<main>' +
     '<h1>Welcome to my Quiz!</h1>' +

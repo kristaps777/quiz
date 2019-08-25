@@ -23,18 +23,31 @@ function validateForm() {
             }
         }
 
-        // 'switch' to the 2nd view
+        // 'switch' to the 2nd view, if everything is OK
         generateTestView();
     }
 
 }
+//------------------------------------------------------------------------------------------------------------//
 
 // generates the 1st 'welcome' view using a template from templates.js
 function generateWelcomeView() {
     document.querySelector("body").innerHTML = welcome_template;
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
+/* As I am using Ajax for the very first time, I have little to no experience with handling server requests correctly,
+and I encountered a small problem, where the response can sometimes be delayed, and that delay results
+in the answers not being displayed properly or being displayed late - always 1 question behind.
+As a temporary fix, I added a few timeouts here and there, they seem to help, but sometimes there are still errors
+in the console, caused by delayed responses from the server.
+*/
+
+//------------------------------------------------------------------------------------------------------------//
+
 // generates the 2nd 'questions' view using a template from templates.js
+// also loads the questions, available answers and the progress bar
 function generateTestView() {
     document.querySelector("body").innerHTML = test_template;
     getTestQuestions();
@@ -42,6 +55,14 @@ function generateTestView() {
     setTimeout(function () { setProgress(); }, 800);
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
+// after the 'questions' view is generated for the 1st time with generateTestView(),
+// this function replaces it and starts checking, if the question_counter_global has reached the limit.
+// the limit is the total number of questions, which has been pushed into a global array as well.
+// if the limit is reached, as in, no more questions are available,
+// the generateResultsView() function is called, to show the results.
+// if there are still questions available, the function loads the next question, available answers and the progress bar
 function generateNextTestView() {
     if (question_counter_global == questions_array_global[0].length) {
         generateResultsView();
@@ -52,6 +73,8 @@ function generateNextTestView() {
         setTimeout(function () { setProgress(); }, 800);
     }
 }
+
+//------------------------------------------------------------------------------------------------------------//
 
 // generates the 3nd 'results' view using a template from templates.js
 function generateResultsView() {
@@ -64,14 +87,19 @@ function generateResultsView() {
     score.innerHTML = "You answered ?? of " + question_counter_global + " questions correctly!";
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
 // increase the question counter global variable
+// I use this to determine, how many questions are left, and on which question the user currently is
 function increaseCount() {
     if (question_counter_global !== questions_array_global[0].length) {
         return question_counter_global++;
     }
 }
 
-// get all available tests for the 'welcome' view
+//------------------------------------------------------------------------------------------------------------//
+
+// get all available tests(quizes) for the 'welcome' view
 function getTestNames() {
     // new request object
     let xhr = new XMLHttpRequest();
@@ -117,6 +145,10 @@ function getTestNames() {
     xhr.send();
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
+// gets(loads) the questions from the selected quiz by ID
+// also we push the questions into a global array variable
 function getTestQuestions() {
     // new request object
     let xhr = new XMLHttpRequest();
@@ -146,6 +178,10 @@ function getTestQuestions() {
 
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
+// gets (loads) the answers for the currently displayed quiz question by ID
+// also adds invisible radio buttons to each answer to enable answer selection, and a few necessary attributes
 function getQuestionAnswers() {
     // new request object
     let xhr = new XMLHttpRequest();
@@ -195,19 +231,32 @@ function getQuestionAnswers() {
 
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
+// generates the progress bar contents
 function setProgress() {
     const progress_bar = document.getElementById("progress");
 
+    // the questions for each quiz are pushed into a global array variable in getTestQuestions()
+    // here, the function looks into that array to see, how many questions are there, and a corresponding
+    // number of div elements is generated. 
     for (let i = 0; i < questions_array_global[0].length; i++) {
         const progress_div = document.createElement("div");
         progress_div.setAttribute("class", "empty_progress");
         progress_bar.appendChild(progress_div);
     }
-
+    // here, the function looks at all the generated progress bar div elements, and changes their appearance,
+    // based on the question_counter_global variable value.
+    // question_counter_global is declared as 0 by default and increases every time 'next' is pressed
+    // when the first question is displayed, counter value is zero, so the appearance of the first div element from
+    // empty_progress array is changed. as the counter increases, the next div changes, and so on
     const all_progress = document.getElementsByClassName("empty_progress");
     all_progress[question_counter_global].classList.add("in_progress");
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
+// work in progress
 function getCorrectAnswers() {
     // new request object
     let xhr = new XMLHttpRequest();
@@ -235,6 +284,12 @@ function getCorrectAnswers() {
 
 }
 
+//------------------------------------------------------------------------------------------------------------//
+
+// grabs the ID of the selected/submitted answer and stores in a global array
+// was intended to be a true listener, but couldn't get it to work properly
+// since the content of the page is re-generated on every question, the listener didn't have enough time to store the
+// ID of the selected answer, it would always give out an undefined error
 function answerListener() {
     let all_radios = document.querySelectorAll(".quiz_radio");
     for (let i = 0; i < all_radios.length; i++) {
